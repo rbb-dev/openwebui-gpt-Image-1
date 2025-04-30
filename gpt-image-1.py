@@ -1,5 +1,5 @@
 """
-title: GPT-Image-1 for OpenWebUI
+title: GPT-Image-1
 description: Simple plugin for generating and editing images using OpenAI's GPT-Image-1 model
 author: Shayano
 author_url: https://github.com/Shayano/
