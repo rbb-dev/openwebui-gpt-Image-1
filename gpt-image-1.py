@@ -4,7 +4,7 @@ description: Simple plugin for generating and editing images using OpenAI's GPT-
 author: Shayano
 author_url: https://github.com/Shayano/
 funding_url: https://github.com/open-webui
-version: 1.0.0
+version: 1.1.0
 """
 
 import base64
@@ -36,8 +36,8 @@ class Pipe:
             ge=1, 
             le=10
         )
-        IMAGE_QUALITY: Literal["low", "medium", "high", "auto"] = Field(
-            default="auto",
+        IMAGE_QUALITY: Literal["low", "medium", "high"] = Field(
+            default="medium",
             description="Quality of the generated image"
         )
         IMAGE_SIZE: Literal["1024x1024", "1536x1024", "1024x1536", "auto"] = Field(
@@ -136,7 +136,7 @@ class Pipe:
                             "prompt": prompt,
                             "n": str(min(self.valves.IMAGE_COUNT, 10)),
                             "size": self.valves.IMAGE_SIZE if self.valves.IMAGE_SIZE != "auto" else "1024x1024",
-                            "quality": self.valves.IMAGE_QUALITY if self.valves.IMAGE_QUALITY != "auto" else "standard",
+                            "quality": self.valves.IMAGE_QUALITY,
                             "model": model.split(".", 1)[-1],
                         })
                         if self.valves.MODERATION != "auto":
@@ -150,7 +150,7 @@ class Pipe:
                             "prompt": prompt,
                             "n": min(self.valves.IMAGE_COUNT, 10),
                             "size": self.valves.IMAGE_SIZE if self.valves.IMAGE_SIZE != "auto" else "1024x1024",
-                            "quality": self.valves.IMAGE_QUALITY if self.valves.IMAGE_QUALITY != "auto" else "standard",
+                            "quality": self.valves.IMAGE_QUALITY,
                             "model": model.split(".", 1)[-1],
                         }
                         if self.valves.MODERATION != "auto":
